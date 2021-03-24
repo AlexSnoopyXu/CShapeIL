@@ -33,6 +33,11 @@ namespace CShapeFrameworkProject
         {
         }
 
+        void Dttp<T>(T p)
+        {
+            string a = p.ToString();
+        }
+
         int Tttp(int p)
         {
             int a = p + this.idid;
@@ -93,6 +98,7 @@ namespace CShapeFrameworkProject
             Type t = p.GetType();
 
             MethodInfo addiMethod = t.GetMethod("AdditionalNumber");
+
             PropertyInfo propertyInfo = t.GetProperty("Number");
             Console.WriteLine("默认值" + propertyInfo.GetValue(p, null));
             propertyInfo.SetValue(p, 5, null);
@@ -113,6 +119,9 @@ namespace CShapeFrameworkProject
 
             Console.WriteLine("AddPrefix result : " + result);
 
+            uint nu = 2334222422;
+            uint num = 23_3422_2422;
+            Console.WriteLine(num);
 
             TestString(1, "ss");
 
@@ -242,7 +251,6 @@ namespace CShapeFrameworkProject
             Label loopLabel = prefixIL.DefineLabel();
             Label beginLable = prefixIL.DefineLabel();
             Label endLable = prefixIL.DefineLabel();
-            Label catchLabel = prefixIL.DefineLabel();
 
             prefixIL.DeclareLocal(typeof(string)).SetLocalSymInfo("prefix");
             prefixIL.DeclareLocal(typeof(string)).SetLocalSymInfo("result");
@@ -295,11 +303,9 @@ namespace CShapeFrameworkProject
             prefixIL.Emit(OpCodes.Ldloc_3);
             prefixIL.Emit(OpCodes.Call, typeof(string).GetMethod("Concat", new Type[] { typeof(string), typeof(string) }));
             prefixIL.Emit(OpCodes.Call, typeof(Console).GetMethod("WriteLine", new Type[] { typeof(string) }));
-            prefixIL.Emit(OpCodes.Leave, catchLabel);
 
             prefixIL.EndExceptionBlock();
 
-            prefixIL.MarkLabel(catchLabel);
             prefixIL.Emit(OpCodes.Ldnull);
             prefixIL.Emit(OpCodes.Stloc_1);
 
